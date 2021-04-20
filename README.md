@@ -121,7 +121,7 @@ module.exports = {
 
 ## Linting
 
-To enforce usage of variables for z-index property add[`stylelint-declaration-strict-value`](https://github.com/AndyOGo/stylelint-declaration-strict-value) to stylelint config:
+To enforce usage of variables for z-index property add [`stylelint-declaration-strict-value`](https://github.com/AndyOGo/stylelint-declaration-strict-value) to stylelint config:
 ```js
 module.exports = {
   plugins: ['stylelint-declaration-strict-value'],
