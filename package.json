@@ -8,6 +8,7 @@
     "postcss-plugin",
     "z-index"
   ],
+  "license": "MIT",
   "scripts": {
     "test": "jest --coverage && eslint ."
   },
