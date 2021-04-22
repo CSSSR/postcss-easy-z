@@ -10,7 +10,7 @@ You can stack your CSS variables for z-indices with `z-stack`. Each new variable
 
 ```css
 :root {
-  --z-body: z-stack();
+  --z-content: z-stack();
   --z-header: z-stack();
   --z-popup: z-stack();
 }
@@ -19,24 +19,40 @@ You can stack your CSS variables for z-indices with `z-stack`. Each new variable
 ```css
 /* Output */
 :root {
-  --z-body: 1;
-  --z-header: calc(var(--z-body) + 1);
+  --z-content: 1;
+  --z-header: calc(var(--z-content) + 1);
   --z-popup: calc(var(--z-header) + 1);
+}
+```
+
+Then just use these variables as usual:
+
+```css
+.content {
+  z-index: var(--z-content);
+}
+
+.header {
+  z-index: var(--z-header);
+}
+
+.popup {
+  z-index: var(--z-popup);
 }
 ```
 
 You can provide starting value for the stack:
 ```css
 :root {
-  --z-body: z-stack(10);
+  --z-content: z-stack(10);
   --z-header: z-stack();
 }
 ```
 ```css
 /* Output */
 :root {
-  --z-body: 10;
-  --z-header: calc(var(--z-body) + 1);
+  --z-content: 10;
+  --z-header: calc(var(--z-content) + 1);
 }
 ```
 
@@ -68,11 +84,11 @@ Stack is isolated by selector:
 
 ## `z-over` and `z-under`
 
-You can explicitly describe relations between z-indices with `z-over` and `z-under`:
+You can also explicitly describe relations between z-indices with `z-over` and `z-under`:
 
 ```css
-.overBody {
-  z-index: z-over(var(--z-body));
+.overContent {
+  z-index: z-over(var(--z-content));
 }
 
 .underHeader {
@@ -82,8 +98,8 @@ You can explicitly describe relations between z-indices with `z-over` and `z-und
 
 ```css
 /* Output */
-.overBody {
-  z-index: calc(var(--z-body) + 1);
+.overContent {
+  z-index: calc(var(--z-content) + 1);
 }
 
 .underHeader {

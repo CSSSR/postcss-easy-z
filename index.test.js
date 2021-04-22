@@ -17,7 +17,7 @@ describe('postcss-easy-z', () => {
     it('creates z-indices based on order of appearance', async () => {
       const input = `
         :root {
-          --z-body: z-stack();
+          --z-content: z-stack();
           --z-header: z-stack();
           --z-popup: z-stack();
         }
@@ -25,8 +25,8 @@ describe('postcss-easy-z', () => {
 
       const output = `
         :root {
-          --z-body: 1;
-          --z-header: calc(var(--z-body) + 1);
+          --z-content: 1;
+          --z-header: calc(var(--z-content) + 1);
           --z-popup: calc(var(--z-header) + 1);
         }
       `
@@ -65,7 +65,7 @@ describe('postcss-easy-z', () => {
     it('starts counting with a provided value', async () => {
       const input = `
         :root {
-          --z-body: z-stack(10);
+          --z-content: z-stack(10);
           --z-header: z-stack();
           --z-popup: z-stack();
         }
@@ -73,8 +73,8 @@ describe('postcss-easy-z', () => {
 
       const output = `
         :root {
-          --z-body: 10;
-          --z-header: calc(var(--z-body) + 1);
+          --z-content: 10;
+          --z-header: calc(var(--z-content) + 1);
           --z-popup: calc(var(--z-header) + 1);
         }
       `
@@ -85,7 +85,7 @@ describe('postcss-easy-z', () => {
     it('fails if starting value is not first', async () => {
       const input = `
         :root {
-          --z-body: z-stack();
+          --z-content: z-stack();
           --z-header: z-stack(10);
           --z-popup: z-stack();
         }
@@ -99,16 +99,16 @@ describe('postcss-easy-z', () => {
     it('converts z-over usages', async () => {
       const input = `
         :root {
-          --z-body: 1;
-          --z-header: z-over(var(--z-body));
+          --z-content: 1;
+          --z-header: z-over(var(--z-content));
           --z-popup: z-over(var(--z-header));
         }
       `
 
       const output = `
         :root {
-          --z-body: 1;
-          --z-header: calc(var(--z-body) + 1);
+          --z-content: 1;
+          --z-header: calc(var(--z-content) + 1);
           --z-popup: calc(var(--z-header) + 1);
         }
       `
@@ -121,7 +121,7 @@ describe('postcss-easy-z', () => {
         :root {
           --z-popup: 100;
           --z-header: z-under(var(--z-popup));
-          --z-body: z-under(var(--z-header));
+          --z-content: z-under(var(--z-header));
         }
       `
 
@@ -129,7 +129,7 @@ describe('postcss-easy-z', () => {
         :root {
           --z-popup: 100;
           --z-header: calc(var(--z-popup) - 1);
-          --z-body: calc(var(--z-header) - 1);
+          --z-content: calc(var(--z-header) - 1);
         }
       `
 
@@ -138,8 +138,8 @@ describe('postcss-easy-z', () => {
 
     it('works for properties', async () => {
       const input = `
-        .overBody {
-          z-index: z-over(var(--z-body));
+        .overContent {
+          z-index: z-over(var(--z-content));
         }
 
         .underHeader {
@@ -148,8 +148,8 @@ describe('postcss-easy-z', () => {
       `
 
       const output = `
-        .overBody {
-          z-index: calc(var(--z-body) + 1);
+        .overContent {
+          z-index: calc(var(--z-content) + 1);
         }
 
         .underHeader {
