@@ -82,7 +82,7 @@ describe('postcss-easy-z', () => {
       await run(input, output)
     })
 
-    it('fails if starting value is not first', async () => {
+    it('works if starting value is not first', async () => {
       const input = `
         :root {
           --z-content: z-stack();
@@ -91,7 +91,15 @@ describe('postcss-easy-z', () => {
         }
       `
 
-      await expect(process(input)).rejects.toThrow('z-stack with starting value should be first')
+      const output = `
+        :root {
+          --z-content: 1;
+          --z-header: 10;
+          --z-popup: calc(var(--z-header) + 1);
+        }
+      `
+
+      await run(input, output)
     })
   })
 
