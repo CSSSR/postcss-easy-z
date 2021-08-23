@@ -23,11 +23,10 @@ module.exports = () => {
 
             case decl.variable && decl.value.startsWith('z-stack('): {
               const explicitValue = decl.value.match(REGEXP_STACK).groups.value
-              if (explicitValue && stackedVariable) {
-                throw decl.error('z-stack with starting value should be first')
-              }
               const startingZ = explicitValue || '1'
-              decl.value = stackedVariable ? `calc(var(${stackedVariable}) + 1)` : startingZ
+              decl.value = stackedVariable ? (
+                explicitValue !== '' ? explicitValue : `calc(var(${stackedVariable}) + 1)`
+              ) : startingZ
               stackedVariable = decl.prop
               return
             }
